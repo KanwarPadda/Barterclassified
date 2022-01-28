@@ -1,27 +1,52 @@
 import React from 'react';
-import {Header, Segment} from "semantic-ui-react";
+import {Button, Header, Segment} from "semantic-ui-react";
 import {Form, Formik} from 'formik';
 import * as Yup from 'yup';
+import TextInput from "../../app/common/form/TextInput";
+import TextArea from "../../app/common/form/TextArea";
+import {Link} from "react-router-dom";
 
 const validationSchema = Yup.object({
-    title: Yup.string().required('must provide a title')
+    title: Yup.string().required('must provide a title'),
+    description: Yup.string().required('must provide a description')
 
 })
+const initialValues = {
+    title: '',
+    description: ''
+}
 
 const CategoryForm = () => {
     return (
         <Segment>
             <Header textAlign="center" content={'Create Category'}/>
             <Formik
-                initialValues={null}
+                initialValues={initialValues}
                 onSubmit={values => console.log(values)}
                 validationSchema={validationSchema}
             >
-                {({values, handleChange, handleSubmit}) => (
-                    <Form className="ui form" onSubmit={handleSubmit}>
+                {({isSubmitting, dirty, isValid}) => (
+                    <Form className="ui form">
+                        <TextInput name={'title'} placeholder={'Category Title'}/>
+                        <TextArea name={'description'} placeholder={'Enter Category Description'} rows={3}/>
 
+                        <Button loading={isSubmitting} // this will load the screen
+                                disabled={!isValid || !dirty || isSubmitting}
+                                type="submit" floated={'right'} positive content={'Submit'}
+                        />
+
+                        <Button
+                            as={Link}
+                            to={'/'}
+                            negative
+                            type="submit"
+                            floated={'right'}
+                            content={'Cancel'}
+                            disabled={isSubmitting}
+                        />
                     </Form>
                 )}
+
 
             </Formik>
 
