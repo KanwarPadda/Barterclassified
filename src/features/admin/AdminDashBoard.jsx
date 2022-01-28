@@ -1,10 +1,11 @@
 import React from 'react';
 import {Header, Icon, Tab} from "semantic-ui-react";
 import CategoryForm from "./CategoryForm";
+import CategoryTable from "./CategoryTable";
 
 const panes = [
     {menuItem: 'Add Category', render: () => <CategoryForm/>},
-    {menuItem: 'See status', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane>},
+    {menuItem: 'See status', render: () => <CategoryTable/>},
     {menuItem: 'Check User', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane>},
 ]
 

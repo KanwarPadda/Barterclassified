@@ -4,11 +4,15 @@ import 'semantic-ui-css/semantic.min.css'
 import App from './app/layout/App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
+import {Provider} from 'react-redux'
+import {store} from "./app/store/configureStore";
 
 ReactDOM.render(
-    <BrowserRouter>
-        <App/>
-    </BrowserRouter>,
+    <Provider store={store}>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
+    </Provider>,
     document.getElementById('root')
 );
 

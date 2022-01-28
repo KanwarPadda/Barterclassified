@@ -5,6 +5,9 @@ import * as Yup from 'yup';
 import TextInput from "../../app/common/form/TextInput";
 import TextArea from "../../app/common/form/TextArea";
 import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {addCategory} from "../../app/store/categorySlice";
+
 
 const validationSchema = Yup.object({
     title: Yup.string().required('must provide a title'),
@@ -17,12 +20,15 @@ const initialValues = {
 }
 
 const CategoryForm = () => {
+    const dispatch = useDispatch();
     return (
         <Segment>
             <Header textAlign="center" content={'Create Category'}/>
             <Formik
                 initialValues={initialValues}
-                onSubmit={values => console.log(values)}
+                onSubmit={values => {
+                    dispatch(addCategory(values))
+                }}
                 validationSchema={validationSchema}
             >
                 {({isSubmitting, dirty, isValid}) => (
