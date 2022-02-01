@@ -1,8 +1,13 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk} from "@reduxjs/toolkit/src/createAsyncThunk";
+
 
 const initialState = {
-    category: []
+    category: [],
+    status: 'idle',
 }
+
+
 
 export const categorySlice = createSlice({
     name: 'Category',
