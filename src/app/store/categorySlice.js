@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {createAsyncThunk} from "@reduxjs/toolkit/src/createAsyncThunk";
+
 
 
 const initialState = {

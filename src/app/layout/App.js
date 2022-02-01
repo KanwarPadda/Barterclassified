@@ -5,10 +5,12 @@ import {Container} from "semantic-ui-react";
 import AdminDashBoard from "../../features/admin/AdminDashBoard";
 import {Route, Routes} from "react-router-dom";
 import HomePage from "../pages/HomePage";
+import ModalManager from "../common/modals/ModalManager";
 
 function App() {
     return (
         <>
+            <ModalManager/>
             <NavBar/>
             <Container className="main">
                 <Routes>
