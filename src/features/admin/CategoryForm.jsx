@@ -36,6 +36,7 @@ const CategoryForm = () => {
                         <TextInput name={'title'} placeholder={'Category Title'}/>
                         <TextArea name={'description'} placeholder={'Enter Category Description'} rows={3}/>
 
+
                         <Button loading={isSubmitting} // this will load the screen
                                 disabled={!isValid || !dirty || isSubmitting}
                                 type="submit" floated={'right'} positive content={'Submit'}
