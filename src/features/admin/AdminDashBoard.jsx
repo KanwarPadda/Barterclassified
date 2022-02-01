@@ -2,6 +2,8 @@ import React from 'react';
 import {Header, Icon, Tab} from "semantic-ui-react";
 import CategoryForm from "./CategoryForm";
 import CategoryTable from "./CategoryTable";
+import {useSelector} from "react-redux";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 
 const panes = [
     {menuItem: 'Add Category', render: () => <CategoryForm/>},
@@ -10,6 +12,9 @@ const panes = [
 ]
 
 const AdminDashBoard = () => {
+    const {loading} = useSelector(state => state.async)
+
+    if (loading) return <LoadingComponent/>
     return (
         <div>
             <Header as='h2' icon textAlign='center'>

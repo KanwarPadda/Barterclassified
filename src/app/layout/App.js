@@ -6,11 +6,13 @@ import AdminDashBoard from "../../features/admin/AdminDashBoard";
 import {Route, Routes} from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import ModalManager from "../common/modals/ModalManager";
+import {ToastContainer} from "react-toastify";
 
 function App() {
     return (
         <>
             <ModalManager/>
+            <ToastContainer/>
             <NavBar/>
             <Container className="main">
                 <Routes>

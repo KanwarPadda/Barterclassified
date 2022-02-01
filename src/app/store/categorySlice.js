@@ -14,10 +14,13 @@ export const categorySlice = createSlice({
     initialState,
     reducers: {
         setCategory: (state, action) => {
+            console.log(action);
             state.category = action.payload;
         },
-        addCategory: (state, action) => {
-            state.category.push(action.payload);
+        addCategory: (state, {payload,dispatch}) => {
+            console.log(dispatch)
+
+            state.category.push(payload);
         }
     }
 })

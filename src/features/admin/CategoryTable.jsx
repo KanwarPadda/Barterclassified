@@ -1,8 +1,7 @@
 import React from 'react';
-import {useSelector} from "react-redux";
 
 const CategoryTable = () => {
-    const categories = useSelector(state => state.category.category);
+    // const categories = useSelector(state => state.category.category);
 
 
     return (
