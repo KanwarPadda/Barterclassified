@@ -19,7 +19,7 @@ export const asyncSlice = createSlice({
         },
         asyncActionError: (state, action) => {
             state.loading = false;
-            state.error = action.payload;
+            state.error = true;
             return state;
         }
 

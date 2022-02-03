@@ -7,6 +7,7 @@ import {Route, Routes} from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import ModalManager from "../common/modals/ModalManager";
 import {ToastContainer} from "react-toastify";
+import Category from "../common/cateogry/Category";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                 <Routes>
                     <Route path={'/'} element={<HomePage/>}/>
                     <Route path={'/admin'} element={<AdminDashBoard/>}/>
+                    <Route path={'/category/:id'} element={<Category/>}/>
                 </Routes>
             </Container>
 

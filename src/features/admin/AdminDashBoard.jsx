@@ -14,7 +14,6 @@ const panes = [
 const AdminDashBoard = () => {
     const {loading} = useSelector(state => state.async)
 
-    if (loading) return <LoadingComponent/>
     return (
         <div>
             <Header as='h2' icon textAlign='center'>
