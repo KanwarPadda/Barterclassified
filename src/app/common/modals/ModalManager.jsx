@@ -1,10 +1,11 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import LogInForm from "../../features/LogInForm";
-
+import RegisterForm from '../../features/RegisterForm';
 const ModalManager = props => {
     const modalLookUp = {
-        LogInForm
+        LogInForm,
+        RegisterForm
     }; // empty modal
     const currentModal = useSelector(state => state.modals); // getting the currentModal.
     let renderedModal; // renderedModal is empty for now.
