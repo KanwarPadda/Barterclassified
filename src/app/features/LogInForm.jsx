@@ -7,11 +7,11 @@ import {Button} from "semantic-ui-react";
 import {useDispatch} from "react-redux";
 import {signInUser} from "../store/authSlice";
 import {closeModal} from "../store/modalSlice";
-import {useNavigate} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 const LogInForm = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    const history = useHistory()
 
     return (
         <ModalWrapper size={'mini'} header={'Sign in to Barter Classified'}>
@@ -24,7 +24,7 @@ const LogInForm = () => {
                         dispatch(signInUser(values));
                         setSubmitting(false);
                         dispatch(closeModal())
-                        navigate('/admin')
+                        history.push('/admin')
                     }}
             >
                 {({isSubmitting, isValid, dirty}) => (

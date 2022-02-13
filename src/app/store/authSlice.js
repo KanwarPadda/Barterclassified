@@ -13,9 +13,17 @@ export const authSlice = createSlice({
         signOutUser: (state) => {
             state.authenticated = false;
             state.currentUser = null
+        },
+        registerUser: (state, { payload }) => {
+            state.currentUser = {
+                email: payload.email,
+                firstname: payload.firstname,
+                lastname: payload.lastname,
+            }
+            state.authenticated = true
         }
     }
 })
 
-export const {signInUser, signOutUser} = authSlice.actions;
+export const {signInUser, signOutUser, registerUser} = authSlice.actions;
 export default authSlice.reducer;

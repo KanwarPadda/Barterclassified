@@ -1,31 +1,35 @@
-import './styles.css';
-import React from 'react';
+import "./styles.css";
+import React from "react";
 import NavBar from "../../features/navbar/NavBar";
-import {Container} from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 import AdminDashBoard from "../../features/admin/AdminDashBoard";
-import {Route, Routes} from "react-router-dom";
+import { Route, Routes, Switch } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import ModalManager from "../common/modals/ModalManager";
-import {ToastContainer} from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Category from "../common/cateogry/Category";
 
 function App() {
-    return (
-        <>
-            <ModalManager/>
-            <ToastContainer/>
-            <NavBar/>
-            <Container className="main">
-                <Routes>
-                    <Route path={'/'} element={<HomePage/>}/>
-                    <Route path={'/admin'} element={<AdminDashBoard/>}/>
-                    <Route path={'/category/:id'} element={<Category/>}/>
-                </Routes>
-            </Container>
-
-
-        </>
-    );
+  return (
+    <>
+      <ModalManager />
+      <ToastContainer />
+      <NavBar />
+      <Container className="main">
+        <Switch>
+          <Route exact path={"/"}>
+            <HomePage />
+          </Route>
+          <Route exact path={"/admin"}>
+            <AdminDashBoard />
+          </Route>
+          <Route exact path={"/category/:id"}>
+            <Category />
+          </Route>
+        </Switch>
+      </Container>
+    </>
+  );
 }
 
 export default App;
