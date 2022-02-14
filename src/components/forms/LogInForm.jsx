@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 
 import {Button} from "semantic-ui-react";
 import {useDispatch} from "react-redux";
-import {signInUser} from "../../Redux/reducers/authSlice";
+import {loginUserAsync} from "../../Redux/reducers/authSlice";
 import {closeModal} from "../../Redux/reducers/modalSlice";
 import {useHistory} from "react-router-dom";
 import TextInput from "./common/TextInput";
@@ -21,10 +21,12 @@ const LogInForm = () => {
                         email: Yup.string().required().email(),
                         password: Yup.string().required()
                     })}
-                    onSubmit={(values, {setSubmitting}) => {
-                        dispatch(signInUser(values));
+                    onSubmit={async (values, {setSubmitting}) => {
+                        const {email, password} = values
+                        await dispatch(loginUserAsync({email, password}));
                         setSubmitting(false);
                         dispatch(closeModal())
+
                         history.push('/admin')
                     }}
             >

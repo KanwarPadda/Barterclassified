@@ -5,7 +5,6 @@ import * as Yup from "yup";
 
 import { Button } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../../Redux/reducers/authSlice";
 import { closeModal } from "../../Redux/reducers/modalSlice";
 import { useHistory } from "react-router-dom";
 import DatePicker from "react-datepicker";
@@ -52,7 +51,7 @@ export default function RegisterForm() {
             setSubmitting(false);
             return;
           }
-          dispatch(registerUser(values));
+          //dispatch(registerUser(values));
           setSubmitting(false);
           dispatch(closeModal());
           history.push("/admin");
