@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import ModalWrapper from "../common/modals/ModalWrapper";
+import ModalWrapper from "../../components/layout/modals/ModalWrapper";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
-import TextInput from "../common/form/TextInput";
+
 import { Button } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../store/authSlice";
-import { closeModal } from "../store/modalSlice";
+import { registerUser } from "../../Redux/reducers/authSlice";
+import { closeModal } from "../../Redux/reducers/modalSlice";
 import { useHistory } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
+import TextInput from "./common/TextInput";
 
 export default function RegisterForm() {
   const dispatch = useDispatch();

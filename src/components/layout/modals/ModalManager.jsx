@@ -1,7 +1,8 @@
 import React from 'react';
 import {useSelector} from "react-redux";
-import LogInForm from "../../features/LogInForm";
-import RegisterForm from '../../features/RegisterForm';
+import LogInForm from "../../forms/LogInForm";
+import RegisterForm from "../../forms/RegisterForm";
+
 const ModalManager = props => {
     const modalLookUp = {
         LogInForm,

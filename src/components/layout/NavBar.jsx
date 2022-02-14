@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Container, Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { openModal } from "../../app/store/modalSlice";
+import { openModal } from "../../Redux/reducers/modalSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();

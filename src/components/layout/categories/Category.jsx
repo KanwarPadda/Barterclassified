@@ -1,8 +1,8 @@
 import React, {memo, useCallback, useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {categorySelectors, fetchSingleCategory} from "../../store/categorySlice";
-import LoadingComponent from "../../layout/LoadingComponent";
+import {categorySelectors, fetchSingleCategory} from "../../../Redux/reducers/categorySlice";
+import LoadingComponent from "../LoadingComponent";
 
 const Category = () => {
 

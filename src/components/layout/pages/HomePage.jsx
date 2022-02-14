@@ -1,6 +1,6 @@
 import React, { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { categorySelectors, fetchCategories } from "../store/categorySlice";
+import { categorySelectors, fetchCategories } from "../../../Redux/reducers/categorySlice";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {

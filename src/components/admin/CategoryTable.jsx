@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {loadCategories} from "../../app/store/categorySlice";
-import LoadingComponent from "../../app/layout/LoadingComponent";
+import {loadCategories} from "../../Redux/reducers/categorySlice";
+import LoadingComponent from "../layout/LoadingComponent";
 
 const CategoryTable = () => {
     // const categories = useSelector(state => state.category.category);

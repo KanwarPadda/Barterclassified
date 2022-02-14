@@ -1,7 +1,7 @@
 import {createAsyncThunk, createEntityAdapter, createSlice} from "@reduxjs/toolkit";
-import {category} from "./ReducerName/constant";
-import firebase from '../config/firebase';
-import {dataFromSnapshot} from "../firestore/fireStoreService";
+import {category} from "../constant/constant";
+import firebase from '../../firestore/firebase';
+import {dataFromSnapshot} from "../../firestore/fireStoreService";
 import {asyncActionError} from "./asyncSlice";
 
 const db = firebase.firestore();

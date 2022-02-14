@@ -1,13 +1,14 @@
 import React from 'react';
-import ModalWrapper from "../common/modals/ModalWrapper";
+import ModalWrapper from "../../components/layout/modals/ModalWrapper";
 import {Form, Formik} from 'formik';
 import * as Yup from 'yup';
-import TextInput from "../common/form/TextInput";
+
 import {Button} from "semantic-ui-react";
 import {useDispatch} from "react-redux";
-import {signInUser} from "../store/authSlice";
-import {closeModal} from "../store/modalSlice";
+import {signInUser} from "../../Redux/reducers/authSlice";
+import {closeModal} from "../../Redux/reducers/modalSlice";
 import {useHistory} from "react-router-dom";
+import TextInput from "./common/TextInput";
 
 const LogInForm = () => {
     const dispatch = useDispatch();

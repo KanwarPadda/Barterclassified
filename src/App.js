@@ -1,13 +1,13 @@
 import "./styles.css";
 import React from "react";
-import NavBar from "../../features/navbar/NavBar";
+import NavBar from "./components/layout/NavBar";
 import { Container } from "semantic-ui-react";
-import AdminDashBoard from "../../features/admin/AdminDashBoard";
+import AdminDashBoard from "./components/admin/AdminDashBoard";
 import { Route, Routes, Switch } from "react-router-dom";
-import HomePage from "../pages/HomePage";
-import ModalManager from "../common/modals/ModalManager";
+import HomePage from "./components/layout/pages/HomePage";
+import ModalManager from "./components/layout/modals/ModalManager";
 import { ToastContainer } from "react-toastify";
-import Category from "../common/cateogry/Category";
+import Category from "./components/layout/categories/Category";
 
 function App() {
   return (

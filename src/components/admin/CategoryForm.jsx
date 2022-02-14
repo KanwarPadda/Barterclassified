@@ -2,11 +2,12 @@ import React from 'react';
 import {Button, Header, Segment} from "semantic-ui-react";
 import {Form, Formik} from 'formik';
 import * as Yup from 'yup';
-import TextInput from "../../app/common/form/TextInput";
-import TextArea from "../../app/common/form/TextArea";
+
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {addCategory} from "../../app/store/categorySlice";
+import {addCategory} from "../../Redux/reducers/categorySlice";
+import TextInput from "../forms/common/TextInput";
+import TextArea from "../forms/common/TextArea";
 
 
 const validationSchema = Yup.object({

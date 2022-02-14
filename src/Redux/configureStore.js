@@ -1,9 +1,9 @@
 import {configureStore} from '@reduxjs/toolkit'
-import categoryReducer from './categorySlice'
-import modalSliceReducer from "./modalSlice";
+import categoryReducer from './reducers/categorySlice'
+import modalSliceReducer from "./reducers/modalSlice";
 import {logger} from "redux-logger/src";
-import authSliceReducer from "./authSlice";
-import asyncSliceReducer from "./asyncSlice"
+import authSliceReducer from "./reducers/authSlice";
+import asyncSliceReducer from "./reducers/asyncSlice"
 
 export const store = configureStore({
     reducer: {
