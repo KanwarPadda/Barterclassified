@@ -1,24 +1,18 @@
-import {createAsyncThunk, createEntityAdapter, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {category} from "../constant/constant";
+import {projectFireStore} from "../../firestore/config";
+import {dataFromSnapshot} from "../../firestore/firestoreService/fireStoreService";
 
-import {asyncActionError} from "./asyncSlice";
 
-
-
-export const fetchCategories = createAsyncThunk(
+export const fetchCategoriesAsync = createAsyncThunk(
     `${category}/loadCategories`,
-    async (_, thunkApi) => {
+     async (_, thunkApi) => {
 
         try {
-            // const querySnapShot = await db.collection('Categories').get();
-            // const categories = (querySnapShot.docs.map(d => (dataFromSnapshot(d))));
-            // if (categories.length > 0) {
-            //     return categories;
-            //
-            // } else {
-            //     return thunkApi.rejectWithValue({error: 'error'});
-            //
-            // }
+
+            const querySnapShot = await projectFireStore.collection('Categories').get();
+
+            return (querySnapShot.docs.map(d => (dataFromSnapshot(d))));
 
         } catch (error) {
             return thunkApi.rejectWithValue({error: error.data});
@@ -37,26 +31,45 @@ export const fetchSingleCategory = createAsyncThunk(
     }
 )
 
-const categoriesAdapter = createEntityAdapter({
-    selectId: (category) => category.id,
-})
+export const addCategoryAsync = createAsyncThunk(
+    `${category}/addingCategory`,
+    async ({title, description}, thunkApi) => {
+        try {
+            await projectFireStore.collection('Categories').doc().set({title, description});
+        } catch (e) {
+            thunkApi.rejectWithValue(e);
+        }
+    }
+)
+
+
 
 
 export const categorySlice = createSlice({
     name: category,
-    initialState: categoriesAdapter.getInitialState({loading: false, error: null}),
+    initialState: {
+        loading: false,
+        error: null,
+        categories:[]},
     reducers: {},
     extraReducers: {
-        [fetchCategories.pending](state) {
+        [fetchCategoriesAsync.pending](state) {
             state.loading = true;
         },
 
-        [fetchCategories.fulfilled](state, {payload}) {
-            state.loading = false;
-            categoriesAdapter.setAll(state, payload);
+        [fetchCategoriesAsync.fulfilled](state, {payload}) {
 
-        },
-        [fetchCategories.rejected](state) {
+            state.categories = [...payload];
+            state.loading = false
+
+
+
+
+
+        }
+        ,
+        [fetchCategoriesAsync.rejected](state) {
+
             state.loading = false;
             state.error = true;
 
@@ -70,6 +83,16 @@ export const categorySlice = createSlice({
         [fetchSingleCategory.rejected](state) {
             state.loading = false;
             state.error = true;
+        },
+        [addCategoryAsync.pending](state) {
+            state.loading = true;
+        },
+        [addCategoryAsync.fulfilled](state) {
+            state.loading = false;
+        },
+        [addCategoryAsync.rejected](state, {payload}) {
+            state.loading = false;
+            state.error = payload;
         }
 
     }
@@ -77,7 +100,7 @@ export const categorySlice = createSlice({
 
 })
 
-export const categorySelectors = categoriesAdapter.getSelectors((state) => state.category)
+
 
 export const {setCategory, addCategory} = categorySlice.actions
 export default categorySlice.reducer

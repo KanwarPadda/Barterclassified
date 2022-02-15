@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {addCategory} from "../../Redux/reducers/categorySlice";
+import {addCategory, addCategoryAsync} from "../../Redux/reducers/categorySlice";
 import TextInput from "../forms/common/TextInput";
 import TextArea from "../forms/common/TextArea";
 
@@ -27,8 +27,10 @@ const CategoryForm = () => {
             <Header textAlign="center" content={'Create Category'}/>
             <Formik
                 initialValues={initialValues}
-                onSubmit={values => {
-                    dispatch(addCategory(values))
+                onSubmit={ async (values) => {
+                    const {title, description} = values;
+
+                    await dispatch(addCategoryAsync({title,description}));
                 }}
                 validationSchema={validationSchema}
             >

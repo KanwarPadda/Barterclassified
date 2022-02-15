@@ -12,7 +12,7 @@ const panes = [
 ]
 
 const AdminDashBoard = () => {
-    const {loading} = useSelector(state => state.async)
+
 
     return (
         <div>

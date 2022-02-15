@@ -1,13 +1,18 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {loadCategories} from "../../Redux/reducers/categorySlice";
 import LoadingComponent from "../layout/LoadingComponent";
+import {fetchCategoriesAsync} from "../../Redux/reducers/categorySlice";
 
 const CategoryTable = () => {
     // const categories = useSelector(state => state.category.category);
-    const {loading} = useSelector(state => state.async);
-    console.log(loading)
+    const {loading,categories} = useSelector(state => state.category);
+
     const dispatch = useDispatch();
+
+    useEffect(async () => {
+
+        await dispatch(fetchCategoriesAsync())
+    }, []);
 
 
     if (loading) return <LoadingComponent/>
