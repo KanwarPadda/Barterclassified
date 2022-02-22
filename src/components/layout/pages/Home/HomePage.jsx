@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Container, Header, Icon, Segment} from "semantic-ui-react";
+import {Button, Container, Header, Icon, Label, Segment} from "semantic-ui-react";
 
 
 import {useHistory} from "react-router-dom";
@@ -14,18 +14,20 @@ const HomePage = () => {
             <Container>
                 <Header as={'h1'} inverted>
                     The Barter Classified
-
+                    <Header as={'p'} inverted>
+                        <TypeWriter maxDelay={800} typing={1}>Buy, </TypeWriter>
+                        <TypeWriter maxDelay={800} typing={2}> Sell &</TypeWriter>
+                        <TypeWriter maxDelay={800} typing={3}>Trade Items</TypeWriter>
+                    </Header>
                 </Header>
-                <Header as={'h3'} inverted>
-                    <TypeWriter maxDelay={800} typing={1}>Buy, </TypeWriter>
-                    <TypeWriter maxDelay={800} typing={2}> Sell &</TypeWriter>
-                    <TypeWriter maxDelay={800} typing={3}>Trade Items</TypeWriter>
-                </Header>
 
-                <Button onClick={() => history.push('/featured')} size={'huge'} inverted>
+              <div>
+
+                <Button className={'option'} onClick={() => history.push('/featured')} size={'huge'} inverted>
                     Start Bartering
                     <Icon name="right arrow" inverted/>
                 </Button>
+              </div>
             </Container>
 
         </Segment>

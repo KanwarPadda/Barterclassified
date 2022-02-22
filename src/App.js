@@ -1,6 +1,6 @@
 import "./styles.css";
 import React from "react";
-import NavBar from "./components/layout/NavBar";
+import NavBar from "./components/layout/pages/Navbar/NavBar";
 import AdminDashBoard from "./components/admin/AdminDashBoard";
 import {Route, Switch} from "react-router-dom";
 import HomePage from "./components/layout/pages/Home/HomePage";
