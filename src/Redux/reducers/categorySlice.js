@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {category} from "../constant/constant";
 import {projectFireStore, projectStorage, timeStamp} from "../../firestore/config";
 import {addingDataToCollection, dataFromSnapshot} from "../../firestore/firestoreService/fireStoreService";
+import {toast} from "react-toastify";
 
 
 export const fetchCategoriesAsync = createAsyncThunk(
@@ -41,10 +42,11 @@ export const addCategoryAsync = createAsyncThunk(
             const img = await projectStorage.ref(uploadPath).put(image);
             const imurl = await img.ref.getDownloadURL();
             await docRef.update({dateAdded: timeStamp.now(), photo: imurl});
-
+            toast.success("successfully added category");
 
         } catch (e) {
-            thunkApi.rejectWithValue(e);
+            toast.error(e);
+           return  thunkApi.rejectWithValue(e);
         }
     }
 )
