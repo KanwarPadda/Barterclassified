@@ -15,52 +15,64 @@ export const loginUserAsync = createAsyncThunk(
         }
 
     }
+);
+
+export  const logOutUserAsync = createAsyncThunk(
+    'Auth/Logout',
+    async (_,thunkApi)=>{
+        try {
+            await projectAuth.signOut();
+        }catch (e) {
+            return thunkApi.rejectWithValue('something went wrong');
+        }
+    }
 )
 
 
 export const authSlice = createSlice({
     name: 'Auth',
-    initialState: {authenticated: true, currentUser: null, adminPrivilege: false, loading: false, error: null},
-    reducers: {
-        verifyAuth: (state, {payload}) => {
-            return projectAuth.onAuthStateChanged(user=>{
-                if(user.isAdmin){
-                    state.user = payload;
-                    state.adminPrivilege = true
-                    state.authenticated = true;
-                }else if(!user.isAdmin){
-                    state.user = payload;
-                    state.authenticated = true;
-                }else {
-                    state.user = null;
-                    state.adminPrivilege = false;
-                    state.authenticated = false;
-                }
-            })
-
-
-        }
-
-    },
+    initialState: {authenticated: true, currentUser: null, loading: false, error: null,admin:null},
+    reducers: {},
     extraReducers: {
+        //region ***logging in User ***
         [loginUserAsync.pending]: (state) => {
             state.loading = true;
 
         },
         [loginUserAsync.fulfilled]: (state, {payload}) => {
             state.loading = false;
-            state.currentUser = payload;
+            if(payload.isAdmin){
+                state.admin = payload;
+            }else {
 
-
+                state.currentUser = payload;
+            }
         },
         [loginUserAsync.rejected]: (state, {payload}) => {
             state.loading = false;
             state.error = payload;
+        },
+        //endregion
 
+        [logOutUserAsync.pending]: (state) => {
+            state.loading = true;
+        },
+        [logOutUserAsync.fulfilled]:(state)=>{
+            state.loading = false;
+            if(state.admin){
+                state.admin = null
+            }else {
+                state.currentUser = null;
+            }
+
+        },
+        [logOutUserAsync.rejected]:(state,{payload})=>{
+            state.loading = false;
+            state.error = payload;
         }
     }
 })
 
 
-export const {verifyAuth} = authSlice.actions;
+export const {} = authSlice.actions;
 export default authSlice.reducer;

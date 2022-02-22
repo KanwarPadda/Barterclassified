@@ -2,8 +2,6 @@ import React from 'react';
 import {Header, Icon, Tab} from "semantic-ui-react";
 import CategoryForm from "./CategoryForm";
 import CategoryTable from "./CategoryTable";
-import {useSelector} from "react-redux";
-import LoadingComponent from "../layout/LoadingComponent";
 
 const panes = [
     {menuItem: 'Add Category', render: () => <CategoryForm/>},

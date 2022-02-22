@@ -5,32 +5,38 @@ import * as Yup from 'yup';
 
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {addCategory, addCategoryAsync} from "../../Redux/reducers/categorySlice";
 import TextInput from "../forms/common/TextInput";
 import TextArea from "../forms/common/TextArea";
+import {ImageInput} from "formik-file-and-image-input/lib"
+import ImageUpload from "../forms/common/ImageUpload";
+import {addCategoryAsync} from "../../Redux/reducers/categorySlice";
 
-
-const validationSchema = Yup.object({
-    title: Yup.string().required('must provide a title'),
-    description: Yup.string().required('must provide a description')
-
-})
 const initialValues = {
     title: '',
-    description: ''
+    description: '',
+    image: null,
 }
+const validationSchema = Yup.object({
+    title: Yup.string().required('must provide a title'),
+    description: Yup.string().required('must provide a description'),
+    image: Yup.mixed().required(),
+
+})
+
 
 const CategoryForm = () => {
     const dispatch = useDispatch();
+    const imageFormats = ["image/png", "image/svg", "image/jpeg"]
     return (
         <Segment>
             <Header textAlign="center" content={'Create Category'}/>
             <Formik
                 initialValues={initialValues}
-                onSubmit={ async (values) => {
-                    const {title, description} = values;
+                onSubmit={async (values) => {
+                    const {title, description, image} = values;
+                    await dispatch(addCategoryAsync({title,description,image}))
 
-                    await dispatch(addCategoryAsync({title,description}));
+
                 }}
                 validationSchema={validationSchema}
             >
@@ -38,6 +44,7 @@ const CategoryForm = () => {
                     <Form className="ui form">
                         <TextInput name={'title'} placeholder={'Category Title'}/>
                         <TextArea name={'description'} placeholder={'Enter Category Description'} rows={3}/>
+                        <ImageInput name={'image'} Component={ImageUpload} validFormats={imageFormats}/>
 
 
                         <Button loading={isSubmitting} // this will load the screen
