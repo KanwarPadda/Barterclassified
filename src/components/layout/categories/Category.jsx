@@ -1,15 +1,14 @@
-import React, {memo} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const Category = () => {
+Category.propTypes = {
 
-
-    return (
-        <div>
-
-
-        </div>
-    );
 };
 
+function Category(props) {
+    return (
+        <div></div>
+    );
+}
 
 export default Category;

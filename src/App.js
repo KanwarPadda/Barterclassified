@@ -9,7 +9,7 @@ import {ToastContainer} from "react-toastify";
 import Category from "./components/layout/categories/Category";
 import {useSelector} from "react-redux";
 import ErrorComponent from "./components/layout/ErrorComponent";
-import FeaturedPage from "./components/layout/pages/FeaturedPage";
+import FeaturedCategory from "./components/layout/pages/FeaturedCategory/FeaturedCategory";
 import {Container} from "semantic-ui-react";
 
 const App = () => {
@@ -40,7 +40,7 @@ const App = () => {
                             <Category/>
                         </Route>
                         <Route path={'/featured'}>
-                            <FeaturedPage/>
+                            <FeaturedCategory/>
                         </Route>
                         </Container>
                     </>

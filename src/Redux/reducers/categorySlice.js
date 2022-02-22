@@ -40,8 +40,8 @@ export const addCategoryAsync = createAsyncThunk(
 
             const uploadPath = `Categories/${docRef.id}/${image.name}`;
             const img = await projectStorage.ref(uploadPath).put(image);
-            const imurl = await img.ref.getDownloadURL();
-            await docRef.update({dateAdded: timeStamp.now(), photo: imurl});
+            const imgUrl = await img.ref.getDownloadURL();
+            await docRef.update({dateAdded: timeStamp.now(), photo: imgUrl});
             toast.success("successfully added category");
 
         } catch (e) {
