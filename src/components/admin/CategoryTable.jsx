@@ -18,7 +18,7 @@ const CategoryTable = () => {
     if (loading) return <LoadingComponent/>
     return (
         <div>
-            test
+            {categories.length}
         </div>
     );
 };

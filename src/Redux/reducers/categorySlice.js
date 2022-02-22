@@ -1,12 +1,13 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {category} from "../constant/constant";
-import {projectFireStore} from "../../firestore/config";
-import {dataFromSnapshot} from "../../firestore/firestoreService/fireStoreService";
+import {projectFireStore, projectStorage, timeStamp} from "../../firestore/config";
+import {addingDataToCollection, dataFromSnapshot} from "../../firestore/firestoreService/fireStoreService";
+import {toast} from "react-toastify";
 
 
 export const fetchCategoriesAsync = createAsyncThunk(
     `${category}/loadCategories`,
-     async (_, thunkApi) => {
+    async (_, thunkApi) => {
 
         try {
 
@@ -33,16 +34,22 @@ export const fetchSingleCategory = createAsyncThunk(
 
 export const addCategoryAsync = createAsyncThunk(
     `${category}/addingCategory`,
-    async ({title, description}, thunkApi) => {
+    async ({title, description, image}, thunkApi) => {
         try {
-            await projectFireStore.collection('Categories').doc().set({title, description});
+            const docRef = await addingDataToCollection('Categories', {title, description})
+
+            const uploadPath = `Categories/${docRef.id}/${image.name}`;
+            const img = await projectStorage.ref(uploadPath).put(image);
+            const imgUrl = await img.ref.getDownloadURL();
+            await docRef.update({dateAdded: timeStamp.now(), photo: imgUrl});
+            toast.success("successfully added category");
+
         } catch (e) {
-            thunkApi.rejectWithValue(e);
+            toast.error(e);
+           return  thunkApi.rejectWithValue(e);
         }
     }
 )
-
-
 
 
 export const categorySlice = createSlice({
@@ -50,7 +57,8 @@ export const categorySlice = createSlice({
     initialState: {
         loading: false,
         error: null,
-        categories:[]},
+        categories: []
+    },
     reducers: {},
     extraReducers: {
         [fetchCategoriesAsync.pending](state) {
@@ -61,10 +69,6 @@ export const categorySlice = createSlice({
 
             state.categories = [...payload];
             state.loading = false
-
-
-
-
 
         }
         ,
@@ -99,7 +103,6 @@ export const categorySlice = createSlice({
 
 
 })
-
 
 
 export const {setCategory, addCategory} = categorySlice.actions

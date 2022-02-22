@@ -1,18 +1,20 @@
 import "./styles.css";
 import React from "react";
-import NavBar from "./components/layout/NavBar";
-import { Container } from "semantic-ui-react";
+import NavBar from "./components/layout/pages/Navbar/NavBar";
 import AdminDashBoard from "./components/admin/AdminDashBoard";
-import { Route, Routes, Switch } from "react-router-dom";
-import HomePage from "./components/layout/pages/HomePage";
+import {Route, Switch} from "react-router-dom";
+import HomePage from "./components/layout/pages/Home/HomePage";
 import ModalManager from "./components/layout/modals/ModalManager";
-import { ToastContainer } from "react-toastify";
+import {ToastContainer} from "react-toastify";
 import Category from "./components/layout/categories/Category";
 import {useSelector} from "react-redux";
+import ErrorComponent from "./components/layout/ErrorComponent";
+import FeaturedCategory from "./components/layout/pages/FeaturedCategory/FeaturedCategory";
+import {Container} from "semantic-ui-react";
 
 const App = () => {
 
-
+    const {currentUser, admin} = useSelector(state => state.auth);
 
 
     return (
@@ -20,22 +22,30 @@ const App = () => {
 
         <>
             <ModalManager/>
-            <ToastContainer/>
-            <NavBar/>
-            <Container className="main">
+            <ToastContainer theme={"colored"} position={'bottom-right'} hideProgressBar/>
+
+            <>
                 <Switch>
                     <Route exact path={"/"}>
                         <HomePage/>
                     </Route>
-
-                    <Route exact path={"/admin"}>
-                        <AdminDashBoard/>
-                    </Route>
-                    <Route exact path={"/category/:id"}>
-                        <Category/>
-                    </Route>
+                    <>
+                        <NavBar/>
+                        <Container className="main">
+                        <Route exact path={"/admin"}>
+                            {!admin && <ErrorComponent message={"you are not authorized"}/>}
+                            {admin && <AdminDashBoard/>}
+                        </Route>
+                        <Route exact path={"/category/:id"}>
+                            <Category/>
+                        </Route>
+                        <Route path={'/featured'}>
+                            <FeaturedCategory/>
+                        </Route>
+                        </Container>
+                    </>
                 </Switch>
-            </Container>
+            </>
         </>
     );
 };
