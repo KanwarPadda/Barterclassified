@@ -11,6 +11,7 @@ import {useSelector} from "react-redux";
 import ErrorComponent from "./components/layout/ErrorComponent";
 import FeaturedCategory from "./components/layout/pages/FeaturedCategory/FeaturedCategory";
 import {Container} from "semantic-ui-react";
+import SandBox from "./components/test/SandBox";
 
 const App = () => {
 
@@ -32,6 +33,9 @@ const App = () => {
                     <>
                         <NavBar/>
                         <Container className="main">
+                            <Route path={'/sandbox'}>
+                                 <SandBox/>
+                            </Route>
                         <Route exact path={"/admin"}>
                             {!admin && <ErrorComponent message={"you are not authorized"}/>}
                             {admin && <AdminDashBoard/>}

@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import './featuredCategoryStyles.scss';
-import CategoryItem from "../../categories/CategoryItem/CategoryItem";
 import {useDispatch, useSelector} from "react-redux";
 import LoadingComponent from "../../LoadingComponent";
 import {projectFireStore} from "../../../../firestore/config";
@@ -22,7 +21,7 @@ const FeaturedCategory = () => {
     }, [dispatch])
 
 
-
+    //region main content
     if (loading) return <LoadingComponent content={'loading categories'}/>
 
     return (
@@ -31,6 +30,7 @@ const FeaturedCategory = () => {
 
         </div>
     );
+    //endregion
 };
 
 export default FeaturedCategory;

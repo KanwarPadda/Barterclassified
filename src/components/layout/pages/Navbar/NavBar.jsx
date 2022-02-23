@@ -25,6 +25,8 @@ const NavBar = () => {
                     inverted
                     content={"Barter".toUpperCase()}
                 />
+
+                <Button as={Link} to={'/sandbox'} content={'Sandbox'}/>
                 {(!currentUser && !admin) &&
                 <>
                     <Button

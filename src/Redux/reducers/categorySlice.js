@@ -46,7 +46,7 @@ export const addCategoryAsync = createAsyncThunk(
 
         } catch (e) {
             toast.error(e);
-           return  thunkApi.rejectWithValue(e);
+            return thunkApi.rejectWithValue(e);
         }
     }
 )
