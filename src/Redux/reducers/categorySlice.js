@@ -9,6 +9,9 @@ export const fetchCategoriesAsync = createAsyncThunk(
     `${category}/loadCategories`,
     async (_, thunkApi) => {
 
+
+
+
         try {
 
             const querySnapShot = await projectFireStore.collection('Categories').get();
@@ -23,6 +26,9 @@ export const fetchCategoriesAsync = createAsyncThunk(
 
     }
 )
+
+
+
 
 export const fetchSingleCategory = createAsyncThunk(
     `${category}/fetchSingleCategory`,
@@ -97,7 +103,9 @@ export const categorySlice = createSlice({
         [addCategoryAsync.rejected](state, {payload}) {
             state.loading = false;
             state.error = payload;
-        }
+        },
+
+
 
     }
 

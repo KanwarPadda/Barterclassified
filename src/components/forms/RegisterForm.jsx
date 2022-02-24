@@ -1,7 +1,7 @@
 /* global google  */
 // this means global is google part of index.html
 
-import React from "react";
+import React, {useState} from "react";
 import ModalWrapper from "../../components/layout/modals/ModalWrapper";
 import {Form, Formik} from "formik";
 import * as Yup from "yup";
@@ -22,6 +22,7 @@ export default function RegisterForm() {
     const history = useHistory();
     const imageFormats = ["image/png", "image/svg", "image/jpeg"]
 
+
     return (
         <ModalWrapper size={"small"} header={"Register with Barter Classified"}>
             <Formik
@@ -33,6 +34,7 @@ export default function RegisterForm() {
                     dob: "",
                     location: {address: '', latLng: null},
                     image: null,
+
                 }}
                 validationSchema={Yup.object({
                     email: Yup.string().required().email(),

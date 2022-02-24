@@ -54,7 +54,11 @@ const NavBar = () => {
                         history.push("/");
                     }}
                 />}
-                {currentUser && <Button as={Link} to={'/profile'} color={'orange'} inverted className={'option'} content={'My Profile'}/>}
+                {currentUser && <Button as={Link} to={'/profile'} color={'orange'} inverted className={'option'}
+                                        content={'My Profile'}/>}
+                {currentUser && <Button as={Link} to={'/create'} color={'teal'} inverted className={'option'}
+                                        content={'Post a Barter'}/>}
+
 
             </div>
 

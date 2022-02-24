@@ -13,6 +13,7 @@ import FeaturedCategory from "./components/layout/pages/FeaturedCategory/Feature
 import {Container} from "semantic-ui-react";
 import SandBox from "./components/test/SandBox";
 import ProfilePage from "./components/layout/profile/ProfilePage";
+import BarterForm from "./components/layout/barter/BarterForm";
 
 const App = () => {
 
@@ -50,6 +51,9 @@ const App = () => {
                             </Route>
                             <Route path={'/featured'}>
                                 <FeaturedCategory/>
+                            </Route>
+                            <Route exact path={'/create'}>
+                                       <BarterForm/>
                             </Route>
                         </Container>
                     </>

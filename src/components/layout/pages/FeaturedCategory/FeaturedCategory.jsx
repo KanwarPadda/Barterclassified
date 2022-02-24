@@ -11,8 +11,8 @@ const FeaturedCategory = () => {
     const {categories, loading} = useSelector(state => state.category);
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        const unsubscribe = projectFireStore.collection('Categories').onSnapshot(() => {
+    useEffect(async () => {
+        const unsubscribe = await projectFireStore.collection('Categories').onSnapshot(() => {
             dispatch(fetchCategoriesAsync());
         })
         return () => {

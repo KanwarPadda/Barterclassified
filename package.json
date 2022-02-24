@@ -11,6 +11,7 @@
     "firebase": "^9.6.5",
     "formik": "^2.2.9",
     "formik-file-and-image-input": "^0.0.6",
+    "google-map-react": "^2.1.10",
     "moment": "^2.29.1",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",

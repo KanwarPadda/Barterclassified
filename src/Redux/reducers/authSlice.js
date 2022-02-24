@@ -75,8 +75,7 @@ export const authSlice = createSlice({
                     }
                 }
             }
-            // const date = timeStamp.fromDate(payload.accountCreated);
-            // console.log({date});
+
 
             if (payload.isAdmin) {
                 state.admin = payload;
