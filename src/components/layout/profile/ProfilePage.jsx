@@ -4,7 +4,7 @@ import ProfileHeader from "./ProfileHeader";
 import ProfilePost from "./ProfilePost";
 
 
-// {menuItem: 'Add Category', render: () => <CategoryForm/>},
+
 
 
 

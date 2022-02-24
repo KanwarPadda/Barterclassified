@@ -1,12 +1,14 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {projectAuth, projectStorage, timeStamp} from "../../firestore/config";
-import {addingDataToCollection, getDoc} from "../../firestore/firestoreService/fireStoreService";
+import {projectAuth, projectFireStore, projectStorage, timeStamp} from "../../firestore/config";
+import {getDoc} from "../../firestore/firestoreService/fireStoreService";
 
 export const loginUserAsync = createAsyncThunk(
     'Auth/login',
     async ({email, password}, thunkApi) => {
         try {
             const snapshot = await projectAuth.signInWithEmailAndPassword(email, password);
+
+
             return await getDoc(snapshot.user.uid);
 
         } catch (e) {
@@ -29,18 +31,14 @@ export const logOutUserAsync = createAsyncThunk(
 );
 export const registerUserAsync = createAsyncThunk(
     'Auth/Register',
-    async ({email, firstname, lastname, location, image, password, birthday}, thunkApi) => {
+    async ({res, email, firstname, lastname, location, image, birthday}, thunkApi) => {
         try {
-            const res = await projectAuth.createUserWithEmailAndPassword(email, password)
-            if (!res) {
-                return thunkApi.rejectWithValue('email already exists')
-            }
+
             const uploadPath = `Users/${res.user.uid}/${image.name}`
             const img = await projectStorage.ref(uploadPath).put(image);
             const imgUrl = await img.ref.getDownloadURL();
 
-            await addingDataToCollection('Users', {
-                id: res.user.uid,
+            await projectFireStore.collection('Users').doc(res.user.uid).set({
                 firstname,
                 lastname,
                 location,
@@ -48,7 +46,9 @@ export const registerUserAsync = createAsyncThunk(
                 birthday,
                 email,
                 accountCreated: timeStamp.now()
-            });
+            })
+
+
         } catch (e) {
             return thunkApi.rejectWithValue(e.message);
         }
@@ -68,6 +68,16 @@ export const authSlice = createSlice({
         },
         [loginUserAsync.fulfilled]: (state, {payload}) => {
             state.loading = false;
+            for (const property in payload) {
+                if (payload.hasOwnProperty(property)) {
+                    if(payload[property] instanceof timeStamp ){
+                        payload[property] = payload[property].toDate();
+                    }
+                }
+            }
+            // const date = timeStamp.fromDate(payload.accountCreated);
+            // console.log({date});
+
             if (payload.isAdmin) {
                 state.admin = payload;
             } else {

@@ -1,18 +1,21 @@
-import React, {useState} from "react";
+/* global google  */
+// this means global is google part of index.html
+
+import React from "react";
 import ModalWrapper from "../../components/layout/modals/ModalWrapper";
 import {Form, Formik} from "formik";
 import * as Yup from "yup";
-
-import {Button} from "semantic-ui-react";
 import {useDispatch} from "react-redux";
-import {closeModal} from "../../Redux/reducers/modalSlice";
 import {useHistory} from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import TextInput from "./common/TextInput";
 import DateInput from "./common/DateInput";
 import ImageUpload from "./common/ImageUpload";
 import {ImageInput} from "formik-file-and-image-input";
-import {registerUserAsync} from "../../Redux/reducers/authSlice";
+import PlaceInput from "./common/PlaceInput";
+import {Button, Label} from "semantic-ui-react";
+import {projectAuth} from "../../firestore/config";
+import {loginUserAsync, registerUserAsync} from "../../Redux/reducers/authSlice";
 
 export default function RegisterForm() {
     const dispatch = useDispatch();
@@ -28,8 +31,8 @@ export default function RegisterForm() {
                     firstname: "",
                     lastname: "",
                     dob: "",
-                    location: "",
-                    image: null
+                    location: {address: '', latLng: null},
+                    image: null,
                 }}
                 validationSchema={Yup.object({
                     email: Yup.string().required().email(),
@@ -42,26 +45,50 @@ export default function RegisterForm() {
                     firstname: Yup.string().required(),
                     lastname: Yup.string().required(),
                     dob: Yup.date().required(),
-                    location: Yup.string().required(),
+                    location: Yup.object().shape({
+                        address: Yup.string().required('location is required')
+                    }),
                     image: Yup.mixed().required(),
                 })}
-                onSubmit={(values, {setSubmitting, setErrors}) => {
-                    const {email, firstname, lastname, dob, location,image,password} = values;
+                onSubmit={async (values, {setSubmitting, setErrors}) => {
+                    const {email, firstname, lastname, dob, location, image, password,} = values;
+
+
                     // extract data from date.
                     const birthday = {
                         year: new Date(dob).getFullYear(),
                         month: new Date(dob).getMonth() + 1,
                         date: new Date(dob).getDate()
                     }
-                    dispatch(registerUserAsync({email, firstname, lastname,location,image,password,birthday}))
+                    try {
 
+                        const res = await projectAuth.createUserWithEmailAndPassword(email, password);
+                        if (!res) {
+                            setErrors({error: "something went wrong"});
+                        } else {
+                            await dispatch(registerUserAsync({
+                                res,
+                                firstname,
+                                lastname,
+                                location,
+                                image,
+                                birthday,
+                                email
+                            }))
+                            setSubmitting(false);
+                            await dispatch(loginUserAsync({email, password}));
+                        }
 
-                    setSubmitting(false);
-                    dispatch(closeModal());
+                    } catch (e) {
+                        setSubmitting(false);
+                        setErrors({error: e.message})
+
+                    }
+
 
                 }}
             >
-                {({isSubmitting, isValid, dirty}) => (
+                {({isSubmitting, isValid, dirty, errors}) => (
                     <Form className={"ui form"}>
                         <TextInput name="email" placeholder={"Email Address"}/>
                         <TextInput name="firstname" placeholder={"First Name"}/>
@@ -69,12 +96,21 @@ export default function RegisterForm() {
                         <DateInput name={'dob'} dateFormat={'yyyy/MM/dd'} placeholder={'Date of Birth'}/>
                         <ImageInput name={'image'} Component={ImageUpload} validFormats={imageFormats}/>
 
-                        <TextInput name="location" placeholder={"Location"}/>
+                        <PlaceInput name="location" placeholder="location"
+                                    options={
+                                        {
+                                            location: new google.maps.LatLng(43.651070, -79.347015), // this where toronto is located
+                                            radius: 2000,
+                                            types: ['address']
+                                        }
+                                    }
+                        />
                         <TextInput
                             name="password"
                             placeholder={"Password"}
                             type="password"
                         />
+                        {errors.error && <Label basic color={'red'} style={{marginBottom: 10}} content={errors.error}/>}
                         <Button
                             loading={isSubmitting} // this will load the screen
                             disabled={!isValid || !dirty || isSubmitting}

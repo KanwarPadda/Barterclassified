@@ -49,11 +49,12 @@ const NavBar = () => {
                     color={'red'}
                     inverted
                     content={'Logout'}
-                    onClick={async () =>  {
+                    onClick={async () => {
                         dispatch(logOutUserAsync());
                         history.push("/");
                     }}
                 />}
+                {currentUser && <Button as={Link} to={'/profile'} color={'orange'} inverted className={'option'} content={'My Profile'}/>}
 
             </div>
 
