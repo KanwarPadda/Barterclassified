@@ -11,6 +11,9 @@ import {useSelector} from "react-redux";
 import ErrorComponent from "./components/layout/ErrorComponent";
 import FeaturedCategory from "./components/layout/pages/FeaturedCategory/FeaturedCategory";
 import {Container} from "semantic-ui-react";
+import SandBox from "./components/test/SandBox";
+import ProfilePage from "./components/layout/profile/ProfilePage";
+import BarterForm from "./components/layout/barter/BarterForm";
 
 const App = () => {
 
@@ -32,16 +35,26 @@ const App = () => {
                     <>
                         <NavBar/>
                         <Container className="main">
-                        <Route exact path={"/admin"}>
-                            {!admin && <ErrorComponent message={"you are not authorized"}/>}
-                            {admin && <AdminDashBoard/>}
-                        </Route>
-                        <Route exact path={"/category/:id"}>
-                            <Category/>
-                        </Route>
-                        <Route path={'/featured'}>
-                            <FeaturedCategory/>
-                        </Route>
+                            <Route path={'/sandbox'}>
+                                <SandBox/>
+                            </Route>
+                            <Route exact path={"/admin"}>
+                                {!admin && <ErrorComponent message={"you are not authorized"}/>}
+                                {admin && <AdminDashBoard/>}
+                            </Route>
+                            <Route exact path={"/category/:id"}>
+                                <Category/>
+                            </Route>
+                            <Route exact path={"/profile"}>
+                                {!currentUser && <ErrorComponent message={"you are not authorized"}/>}
+                                {currentUser && <ProfilePage/>}
+                            </Route>
+                            <Route path={'/featured'}>
+                                <FeaturedCategory/>
+                            </Route>
+                            <Route exact path={'/create'}>
+                                       <BarterForm/>
+                            </Route>
                         </Container>
                     </>
                 </Switch>

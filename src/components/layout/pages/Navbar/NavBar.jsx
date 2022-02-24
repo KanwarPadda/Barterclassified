@@ -25,6 +25,8 @@ const NavBar = () => {
                     inverted
                     content={"Barter".toUpperCase()}
                 />
+
+                <Button as={Link} to={'/sandbox'} content={'Sandbox'}/>
                 {(!currentUser && !admin) &&
                 <>
                     <Button
@@ -47,11 +49,16 @@ const NavBar = () => {
                     color={'red'}
                     inverted
                     content={'Logout'}
-                    onClick={async () =>  {
+                    onClick={async () => {
                         dispatch(logOutUserAsync());
                         history.push("/");
                     }}
                 />}
+                {currentUser && <Button as={Link} to={'/profile'} color={'orange'} inverted className={'option'}
+                                        content={'My Profile'}/>}
+                {currentUser && <Button as={Link} to={'/create'} color={'teal'} inverted className={'option'}
+                                        content={'Post a Barter'}/>}
+
 
             </div>
 

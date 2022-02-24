@@ -6,7 +6,8 @@ import RegisterForm from "../../forms/RegisterForm";
 const ModalManager = props => {
     const modalLookUp = {
         LogInForm,
-        RegisterForm
+        RegisterForm,
+
     }; // empty modal
     const currentModal = useSelector(state => state.modals); // getting the currentModal.
     let renderedModal; // renderedModal is empty for now.
