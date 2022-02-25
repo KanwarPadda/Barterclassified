@@ -12,10 +12,12 @@ import ImageUpload from "../../forms/common/ImageUpload";
 import {ImageInput} from "formik-file-and-image-input";
 import Checkboxes from "../../forms/common/CheckBoxes";
 import {addProduct} from "../../../Redux/reducers/productSlice";
+import {toast} from "react-toastify";
+import {useHistory} from "react-router-dom";
 
 const BarterForm = () => {
     const imageFormats = ["image/png", "image/svg", "image/jpeg"]
-
+    const history = useHistory();
     const dispatch = useDispatch();
     const {categories, loading} = useSelector(state => state.category);
     const [barterOffer, setBarterOffer] = useState(false)
@@ -78,6 +80,8 @@ const BarterForm = () => {
 
                       await  dispatch(addProduct({values}));
                         setSubmitting(false);
+                        toast.success('Post successfully added');
+                        history.push('/featured')
 
 
                     }}>

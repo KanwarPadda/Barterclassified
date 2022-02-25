@@ -2,7 +2,7 @@ import React from "react";
 import {Link, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import './NavBarStyle.scss'
-import {ReactComponent as Logo} from "../../../../assets/crown.svg";
+import {ReactComponent as Logo} from "../../../../assets/market-svgrepo-com.svg";
 import {openModal} from "../../../../Redux/reducers/modalSlice";
 import {Button} from "semantic-ui-react";
 import {logOutUserAsync} from "../../../../Redux/reducers/authSlice";
@@ -18,15 +18,8 @@ const NavBar = () => {
                 <Logo className={'logo'}/>
             </Link>
             <div className='options'>
-                <Button
-                    className={'option'}
 
-                    color={'orange'}
-                    inverted
-                    content={"Barter".toUpperCase()}
-                />
 
-                <Button as={Link} to={'/sandbox'} content={'Sandbox'}/>
                 {(!currentUser && !admin) &&
                 <>
                     <Button

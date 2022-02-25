@@ -1,9 +1,8 @@
 import React from 'react';
 import './cateogryItemStyles.scss'
 import {Link} from "react-router-dom";
-import {Button} from "semantic-ui-react";
 
-const CategoryItem = ({title,photo,size,id}) => {
+const CategoryItem = ({title, photo, size, id}) => {
     return (
         <div className={`${size} menu-item`}>
             <div
