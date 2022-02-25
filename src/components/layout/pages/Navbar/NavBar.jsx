@@ -8,36 +8,36 @@ import {Button} from "semantic-ui-react";
 import {logOutUserAsync} from "../../../../Redux/reducers/authSlice";
 
 const NavBar = () => {
-    const {currentUser, admin} = useSelector(state => state.auth);
+    const { currentUser, admin } = useSelector(state => state.auth);
 
     const dispatch = useDispatch();
     const history = useHistory();
     return (
         <div className="header">
             <Link to='/' className='logo-container'>
-                <Logo className={'logo'}/>
+                <Logo className={'logo'} />
             </Link>
             <div className='options'>
 
 
                 {(!currentUser && !admin) &&
-                <>
-                    <Button
-                        className={'option'}
-                        onClick={() => dispatch(openModal({modalType: "LogInForm"}))}
-                        color={'green'}
-                        inverted
-                        content={"login".toUpperCase()}
-                    />
-                    <Button
-                        inverted
-                        className={'option'}
-                        color={'violet'}
-                        content={"Register".toUpperCase()}
-                        style={{marginLeft: "0.5em"}}
-                        onClick={() => dispatch(openModal({modalType: "RegisterForm"}))}
-                    />
-                </>}
+                    <>
+                        <Button
+                            className={'option'}
+                            onClick={() => dispatch(openModal({ modalType: "LogInForm" }))}
+                            color={'green'}
+                            inverted
+                            content={"login".toUpperCase()}
+                        />
+                        <Button
+                            inverted
+                            className={'option'}
+                            color={'violet'}
+                            content={"Register".toUpperCase()}
+                            style={{ marginLeft: "0.5em" }}
+                            onClick={() => dispatch(openModal({ modalType: "RegisterForm" }))}
+                        />
+                    </>}
                 {(currentUser || admin) && <Button
                     color={'red'}
                     inverted
@@ -48,16 +48,27 @@ const NavBar = () => {
                     }}
                 />}
                 {currentUser && <Button as={Link} to={'/profile'} color={'orange'} inverted className={'option'}
-                                        content={'My Profile'}/>}
+                    content={'My Profile'} />}
                 {currentUser && <Button as={Link} to={'/create'} color={'teal'} inverted className={'option'}
-                                        content={'Post a Barter'}/>}
-
-
+                    content={'Post a Barter'} />}
+                
+                {(currentUser || admin) && (
+                    <Button
+                        color={"red"}
+                        inverted
+                        content={"Chat"}
+                        as={Link}
+                        to={"/chat/" + currentUser.firstname}
+                    />)}
+                
             </div>
 
-
+            
         </div>
     );
+
 };
 
 export default NavBar;
+
+

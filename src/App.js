@@ -16,6 +16,7 @@ import ProfilePage from "./components/layout/profile/ProfilePage";
 import BarterForm from "./components/layout/barter/BarterForm";
 import Posts from "./components/layout/posts/Posts";
 import PostDetails from "./components/layout/posts/postDetails/PostDetails";
+import InitiateChat from "./components/chat/InitiateChat";
 
 const App = () => {
 
@@ -63,6 +64,9 @@ const App = () => {
                             </Route>
                             <Route exact path={'/details/:id'}>
                                 <PostDetails/>
+                            </Route>
+                            <Route path={'/chat/:user'}>
+                                <InitiateChat/>
                             </Route>
                         </Container>
                     </>
