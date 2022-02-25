@@ -1,7 +1,7 @@
 /* global google  */
 // this means global is google part of index.html
 
-import React, {useState} from "react";
+import React from "react";
 import ModalWrapper from "../../components/layout/modals/ModalWrapper";
 import {Form, Formik} from "formik";
 import * as Yup from "yup";
@@ -16,6 +16,7 @@ import PlaceInput from "./common/PlaceInput";
 import {Button, Label} from "semantic-ui-react";
 import {projectAuth} from "../../firestore/config";
 import {loginUserAsync, registerUserAsync} from "../../Redux/reducers/authSlice";
+import {toast} from "react-toastify";
 
 export default function RegisterForm() {
     const dispatch = useDispatch();
@@ -79,6 +80,8 @@ export default function RegisterForm() {
                             }))
                             setSubmitting(false);
                             await dispatch(loginUserAsync({email, password}));
+                            toast.success('registration successful');
+                            history.push('/featured');
                         }
 
                     } catch (e) {

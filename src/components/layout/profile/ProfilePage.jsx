@@ -1,20 +1,14 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Divider, Tab} from 'semantic-ui-react'
 import ProfileHeader from "./ProfileHeader";
 import ProfilePost from "./ProfilePost";
 import {useSelector} from "react-redux";
 import './profileStyles.css'
-import LoadingComponent from "../LoadingComponent";
-
-
-
 
 
 const ProfilePage = () => {
 
-    const {currentUser,loading,error} = useSelector(state => state.auth);
-
-
+    const {currentUser} = useSelector(state => state.auth);
 
 
     const panes = [
@@ -31,7 +25,7 @@ const ProfilePage = () => {
             render: () => <Tab.Pane attached={false}><ProfilePost/></Tab.Pane>,
         },
     ]
-    if (loading && currentUser) return <LoadingComponent/>
+
     return (
         <div>
 

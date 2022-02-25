@@ -14,7 +14,7 @@ import {toast} from "react-toastify";
 const LogInForm = () => {
     const dispatch = useDispatch();
     const history = useHistory()
-    const {admin, normalUser, error} = useSelector(state => state.auth);
+    const { error} = useSelector(state => state.auth);
     return (
         <ModalWrapper size={'mini'} header={'Sign in to Barter Classified'}>
             <Formik initialValues={{email: '', password: ''}}
@@ -37,6 +37,7 @@ const LogInForm = () => {
                         } else {
                             setSubmitting(false);
                             dispatch(closeModal())
+                            toast.success('Welcome to Barter Classified')
                             history.push("/");
                         }
 

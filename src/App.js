@@ -14,6 +14,8 @@ import {Container} from "semantic-ui-react";
 import SandBox from "./components/test/SandBox";
 import ProfilePage from "./components/layout/profile/ProfilePage";
 import BarterForm from "./components/layout/barter/BarterForm";
+import Posts from "./components/layout/posts/Posts";
+import PostDetails from "./components/layout/posts/postDetails/PostDetails";
 import InitiateChat from "./components/chat/InitiateChat";
 
 const App = () => {
@@ -54,7 +56,14 @@ const App = () => {
                                 <FeaturedCategory/>
                             </Route>
                             <Route exact path={'/create'}>
-                                       <BarterForm/>
+                                <BarterForm/>
+                            </Route>
+
+                            <Route exact path={'/posts/:id'}>
+                                <Posts/>
+                            </Route>
+                            <Route exact path={'/details/:id'}>
+                                <PostDetails/>
                             </Route>
                             <Route path={'/chat/:user'}>
                                 <InitiateChat/>
