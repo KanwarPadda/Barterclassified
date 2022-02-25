@@ -10,6 +10,7 @@ import StripeCheckoutButton from "../../payment/stripe/StripeCheckOutButton";
 
 const PostDetails = () => {
     const {loading, product} = useSelector(state => state.product);
+    const {currentUser} = useSelector(state => state.auth)
     const {id} = useParams();
     const dispatch = useDispatch();
     useEffect(async () => {
@@ -63,6 +64,8 @@ const PostDetails = () => {
                             <header content={`Barter Price :  ${product.barterPrice}`}/>
                             <header content={`ProductName:  ${product.barterProduct}`}/>
                             <Button content={'Pay now'} color={'teal'}/>
+                            {currentUser.id !== product.user_id && (
+                                <StripeCheckoutButton price={product.barterPrice}/>)}
                         </>
 
 
@@ -72,12 +75,10 @@ const PostDetails = () => {
                 </Grid.Row>
 
                 <PostUserInfo userId={product.user_id}/>
-                <StripeCheckoutButton price={product.price}/>
+
+                {currentUser.id !== product.user_id && (<StripeCheckoutButton price={product.price}/>)}
+
             </Grid.Column>
-
-
-
-
 
 
         </Grid>
