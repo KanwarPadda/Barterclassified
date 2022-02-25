@@ -2,7 +2,7 @@ import {projectFireStore, timeStamp} from "../config";
 
 export const getDoc = async id => {
     const snapshot = await projectFireStore.collection('Users').doc(id).get();
-    const data = snapshot.data();
+
 
 
     return {...snapshot.data(), id: snapshot.id};

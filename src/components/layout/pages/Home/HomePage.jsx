@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Container, Header, Icon, Label, Segment} from "semantic-ui-react";
+import {Button, Container, Header, Icon, Segment} from "semantic-ui-react";
 
 
 import {useHistory} from "react-router-dom";
@@ -21,13 +21,13 @@ const HomePage = () => {
                     </Header>
                 </Header>
 
-              <div>
+                <div>
 
-                <Button className={'option'} onClick={() => history.push('/featured')} size={'huge'} inverted>
-                    Start Bartering
-                    <Icon name="right arrow" inverted/>
-                </Button>
-              </div>
+                    <Button className={'option'} onClick={() => history.push('/featured')} size={'huge'} inverted>
+                        Start Bartering
+                        <Icon name="right arrow" inverted/>
+                    </Button>
+                </div>
             </Container>
 
         </Segment>
