@@ -52,7 +52,7 @@ const NavBar = () => {
                 {currentUser && <Button as={Link} to={'/create'} color={'teal'} inverted className={'option'}
                     content={'Post a Barter'} />}
                 
-                {(currentUser || admin) && (
+                {(currentUser) && (
                     <Button
                         color={"red"}
                         inverted

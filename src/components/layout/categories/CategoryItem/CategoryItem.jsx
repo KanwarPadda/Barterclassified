@@ -14,7 +14,7 @@ const CategoryItem = ({title, photo, size, id}) => {
             <div className='content'>
                 <h1 className='title'>{title.toUpperCase()}</h1>
 
-                <Link className='subtitle' to={`/posts/${id}`}>BARTER NOW</Link>
+                <Link className='subtitle' to={`/posts/${title}/${id}`}>BARTER NOW</Link>
             </div>
         </div>
     );

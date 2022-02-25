@@ -29,7 +29,7 @@ const LogInForm = () => {
                         if (result.meta.requestStatus === `rejected`) {
                             setSubmitting(false);
                             setErrors({error});
-                        } else if (result.payload.isAdmin) {
+                        } else if (result.payload.email==="admin@gmail.com") {
                             setSubmitting(false);
                             dispatch(closeModal())
                             history.push("/admin");
