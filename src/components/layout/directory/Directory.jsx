@@ -6,7 +6,7 @@ const Directory = ({categories}) => {
     return (
         <div className={'directory-menu'}>
             {categories.map(({photo,id,title,size})=>(
-                <CategoryItem key={id} title={title} photo={photo} size={size}/>
+                <CategoryItem key={id} title={title} photo={photo} id={id}  size={size}/>
                 )
             )}
         </div>

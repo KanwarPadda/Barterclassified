@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {projectAuth, projectFireStore, projectStorage, timeStamp} from "../../firestore/config";
-import {getDoc} from "../../firestore/firestoreService/fireStoreService";
+import {dataFromSnapshot, getDoc} from "../../firestore/firestoreService/fireStoreService";
 
 export const loginUserAsync = createAsyncThunk(
     'Auth/login',
@@ -18,6 +18,20 @@ export const loginUserAsync = createAsyncThunk(
 
     }
 );
+
+export const getPostOwnerInfo = createAsyncThunk(
+    'Auth/getPostOwnerInfo',
+    async ({userId}, thunkApi) => {
+        try {
+            const snapshot = await projectFireStore.collection('Users').doc(userId).get();
+            return dataFromSnapshot(snapshot);
+
+        } catch (e) {
+
+        }
+    }
+)
+
 
 export const logOutUserAsync = createAsyncThunk(
     'Auth/Logout',
@@ -58,7 +72,7 @@ export const registerUserAsync = createAsyncThunk(
 
 export const authSlice = createSlice({
     name: 'Auth',
-    initialState: {authenticated: true, currentUser: null, loading: false, error: null, admin: null},
+    initialState: {authenticated: true, currentUser: null, loading: false, error: null, admin: null, postOwner: null},
     reducers: {},
     extraReducers: {
         //region ***logging in User ***
@@ -70,7 +84,7 @@ export const authSlice = createSlice({
             state.loading = false;
             for (const property in payload) {
                 if (payload.hasOwnProperty(property)) {
-                    if(payload[property] instanceof timeStamp ){
+                    if (payload[property] instanceof timeStamp) {
                         payload[property] = payload[property].toDate();
                     }
                 }
@@ -115,11 +129,24 @@ export const authSlice = createSlice({
         [logOutUserAsync.rejected]: (state, {payload}) => {
             state.loading = false;
             state.error = payload;
-        }
+        },
         //endregion
+
+        [getPostOwnerInfo.pending]: (state) => {
+            state.loading = true
+
+        },
+        [getPostOwnerInfo.fulfilled]: (state, {payload}) => {
+            state.loading = false
+            console.log({payload});
+            state.postOwner = payload
+        },
+        [getPostOwnerInfo.rejected]:(state, {payload}) => {
+            state.loading = false
+            state.postOwner = payload;
+        }
     }
 })
 
 
-export const {} = authSlice.actions;
 export default authSlice.reducer;

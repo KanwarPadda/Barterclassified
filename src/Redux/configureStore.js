@@ -7,6 +7,7 @@ import asyncSliceReducer from "./reducers/asyncSlice"
 import storage from 'redux-persist/lib/storage'
 import {persistReducer} from 'redux-persist'
 import {productReducer} from "./reducers/productSlice";
+import {category} from "./constant/constant";
 
 
 const reducers = combineReducers({
@@ -19,6 +20,7 @@ const reducers = combineReducers({
 const persistConfig = {
     key: 'root',
     storage: storage,
+    whitelist: ['modals', "auth"]
 };
 
 const _persistedReducer = persistReducer(persistConfig, reducers);
