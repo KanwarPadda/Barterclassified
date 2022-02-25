@@ -1,10 +1,11 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {addingDataToCollection} from "../../firestore/firestoreService/fireStoreService";
+import {addingDataToCollection, dataFromSnapshot} from "../../firestore/firestoreService/fireStoreService";
 import {projectFireStore, projectStorage, timeStamp} from "../../firestore/config";
 
 const initialState = {
     products: [],
     error: null,
+    product: {},
     loading: null,
 
 }
@@ -56,17 +57,35 @@ export const addProduct = createAsyncThunk(
 );
 
 export const getProducts = createAsyncThunk(
-    'Product/getProduct',
-    async ({args}, thunkApi) => {
+    'Product/getProducts',
+    async ({id}, thunkApi) => {
+        try {
+            const productRefs = await projectFireStore.collection('Products').where('categories', '==', id).get();
+            return (productRefs.docs.map(d => (dataFromSnapshot(d))));
+        } catch (e) {
+            return thunkApi.rejectWithValue(e.message);
+        }
 
-
-      // const test=  await projectFireStore.collection('Products').where('categories','==',args.id).get().then((snapshot)=>snapshot.da)
-      //   console.log({test});
 
     }
 )
 
+export const getProduct = createAsyncThunk(
+    "product/getProduct",
 
+
+    async ({id}, thunkApi) => {
+
+        try {
+            const productRef = await projectFireStore.collection('Products').doc(id).get()
+            return dataFromSnapshot(productRef);
+
+        } catch (e) {
+            return thunkApi.rejectWithValue(e.message);
+        }
+
+    }
+)
 
 
 export const ProductSlice = createSlice({
@@ -85,14 +104,28 @@ export const ProductSlice = createSlice({
             state.loading = false
             state.error = payload;
         },
-        [getProducts.pending](state){
+        [getProducts.pending](state) {
             state.loading = true;
         },
-        [getProducts.fulfilled](state){
+        [getProducts.fulfilled](state, {payload}) {
+            state.loading = false;
+            state.products = [...payload];
+        },
+        [getProducts.rejected](state) {
             state.loading = false;
         },
-        [getProducts.rejected](state){
+
+        [getProduct.pending](state) {
+            state.loading = true;
+        },
+        [getProduct.fulfilled](state, {payload}) {
             state.loading = false;
+            state.product = {...payload};
+        },
+
+        [getProduct.rejected](state, {payload}) {
+            state.loading = false;
+            state.error = payload;
         }
 
 

@@ -21,7 +21,7 @@ const FeaturedCategory = () => {
     }, [dispatch])
 
 
-    //region main content
+
     if (loading) return <LoadingComponent content={'loading categories'}/>
 
     return (

@@ -31,7 +31,7 @@ const ProfilePage = () => {
             render: () => <Tab.Pane attached={false}><ProfilePost/></Tab.Pane>,
         },
     ]
-    if (loading && currentUser) return <LoadingComponent/>
+
     return (
         <div>
 

@@ -14,11 +14,11 @@ let persistor = persistStore(store);
 
 ReactDOM.render(
     <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
             <BrowserRouter>
+        <PersistGate loading={null} persistor={persistor}>
                 <App/>
-            </BrowserRouter>
         </PersistGate>
+            </BrowserRouter>
     </Provider>,
     document.getElementById('root')
 );
