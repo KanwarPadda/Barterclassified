@@ -14,6 +14,7 @@ import {Container} from "semantic-ui-react";
 import SandBox from "./components/test/SandBox";
 import ProfilePage from "./components/layout/profile/ProfilePage";
 import BarterForm from "./components/layout/barter/BarterForm";
+import InitiateChat from "./components/chat/InitiateChat";
 
 const App = () => {
 
@@ -54,6 +55,9 @@ const App = () => {
                             </Route>
                             <Route exact path={'/create'}>
                                        <BarterForm/>
+                            </Route>
+                            <Route path={'/chat/:user'}>
+                                <InitiateChat/>
                             </Route>
                         </Container>
                     </>
