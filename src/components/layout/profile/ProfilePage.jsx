@@ -34,10 +34,7 @@ const ProfilePage = () => {
 
 
             <Divider hidden/>
-            <Tab
-                menu={{color: 'purple', inverted: true, attached: false, tabular: false}}
-                panes={panes}
-            />
+
         </div>
     );
 };

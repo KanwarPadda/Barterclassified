@@ -59,12 +59,13 @@ const App = () => {
                                 <BarterForm/>
                             </Route>
 
-                            <Route exact path={'/posts/:id'}>
+                            <Route exact path={'/posts/:postitle/:id'}>
                                 <Posts/>
                             </Route>
                             <Route exact path={'/details/:id'}>
                                 <PostDetails/>
                             </Route>
+
                             <Route path={'/chat/:user'}>
                                 <InitiateChat/>
                             </Route>

@@ -5,12 +5,13 @@ import LoadingComponent from "../LoadingComponent";
 import {projectFireStore} from "../../../firestore/config";
 import {getProducts} from "../../../Redux/reducers/productSlice";
 import PostCollection from "./collection/PostCollection";
+import {Grid, Header} from "semantic-ui-react";
 
 const Posts = () => {
 
-    let {id} = useParams();
+    let {id,postitle} = useParams();
     const {loading, products} = useSelector(state => state.product);
-    console.log(id)
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -24,15 +25,23 @@ const Posts = () => {
     if (products.length === 0) return 'nothing found';
 
     return (
-        <>
-            <div>
-                <h1>Page</h1>
-            </div>
-            <br/>
         <div>
-            {products.map(product => <PostCollection key={product.id} post={product}/>)}
+
+            <Header as={'h1'} content={postitle.toUpperCase()} textAlign={'center'}/>
+
+            <br/>
+            <Grid>
+
+                <Grid.Row>
+
+
+                    {products.map(product => <PostCollection key={product.id} post={product}/>)}
+
+                </Grid.Row>
+
+            </Grid>
+
         </div>
-        </>
     );
 };
 
